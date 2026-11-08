@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: house-api
-          image: muhammadhamzamukhtar/house-api:build-6   # the model version
+          image: muhammadhamzamukhtar/house-api:build-7   # the model version
           ports:
             - containerPort: 8000
           resources:
