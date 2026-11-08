@@ -89,7 +89,7 @@ Each run logs the params `model_type`, `test_size` and `rows_in_dataset`, the me
 
 ## 2. DVC + AWS S3 (Labs 1–2)
 
-Git and DVC are already initialised in this folder, and `houses.csv` is tracked by DVC (receipt: `houses.csv.dvc`, md5 `cd37d1d7…`). What's left is connecting your own S3 bucket.
+This repo is already connected: DVC remote `s3://hamza-mlops-dvc-2026/dvc` (us-east-1, profile `dvc` in `.dvc/config.local`), and the data has been pushed (md5 `cd37d1d7…`). The steps below show how it was set up, or how to point it at a different bucket.
 
 ### 2.1 AWS setup (once)
 1. **S3 → Create bucket**, e.g. `yourname-mlops-dvc-2026`, region `us-east-1`. Keep *Block all public access* ON.
@@ -227,6 +227,8 @@ push to main / PR / "Run workflow" button
   9. upload metrics.json as an artifact (always)
  10. build + push YOURNAME/house-api:build-N   (main only, not PRs)
 ```
+
+Steps 9–10 are skipped with a warning until the `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets exist, so the pipeline can pass before Docker Hub is set up.
 
 **Experiment 1 (gate blocks a bad model):** set `PASS_MARK = 0.1` in `tests/test_model.py` and push. The run turns red at the quality gate and no image is pushed. Set it back to `3.0` afterwards.
 **Experiment 2 (continuous training):** add rows to `houses.csv`, then run `dvc add`, `dvc push`, `git add houses.csv.dvc`, `git commit` and `git push`. The pipeline retrains and pushes a new `build-N`.
