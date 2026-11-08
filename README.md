@@ -228,7 +228,7 @@ push to main / PR / "Run workflow" button
  10. build + push YOURNAME/house-api:build-N   (main only, not PRs)
 ```
 
-Steps 9–10 are skipped with a warning until the `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets exist, so the pipeline can pass before Docker Hub is set up.
+Step 10 is skipped with a warning until the `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets exist, so the pipeline can pass before Docker Hub is set up.
 
 **Experiment 1 (gate blocks a bad model):** set `PASS_MARK = 0.1` in `tests/test_model.py` and push. The run turns red at the quality gate and no image is pushed. Set it back to `3.0` afterwards.
 **Experiment 2 (continuous training):** add rows to `houses.csv`, then run `dvc add`, `dvc push`, `git add houses.csv.dvc`, `git commit` and `git push`. The pipeline retrains and pushes a new `build-N`.
