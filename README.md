@@ -16,6 +16,15 @@ It follows MLOps Labs 1–4. The labs give Windows/PowerShell commands; this REA
 | Kubernetes (deploy, scale, rollback) | 3 | `k8s/deployment.yaml`, `k8s/service.yaml` |
 | Monitoring (Prometheus) and drift (KS test) | 4 | `app.py` (`/metrics`), `prometheus.yml`, `send_traffic.py`, `check_drift.py` |
 
+## Live setup
+
+| What | Where |
+|---|---|
+| Code + pipeline | https://github.com/MuhammadHamzaMukhtar/house-price-mlops (private) |
+| Data versions (DVC) | `s3://hamza-mlops-dvc-2026/dvc` (us-east-1): October (30), November (35), luxury (41 houses) |
+| Images (amd64 + arm64) | `muhammadhamzamukhtar/house-api:build-N` on Docker Hub (public) |
+| Running model | local Kubernetes (`docker-desktop`), 2 pods of `build-7`, http://localhost:8080/docs |
+
 ## Architecture
 
 ```mermaid
@@ -302,5 +311,6 @@ make prometheus-stop
 | CI red at `dvc pull` | Secret names exact? `profile` only in `.dvc/config.local`? Data pushed before the receipt? |
 | CI red at Docker login | Wrong username, or the token isn't Read & Write |
 | `ImagePullBackOff` | Docker Hub repo must be Public; check the username and tag in the YAML |
+| `no matching manifest for linux/arm64` | The image was built only for Intel. The pipeline now builds amd64 + arm64 with Buildx; use `build-6` or newer |
 | `connection refused 127.0.0.1:6443` | Kubernetes isn't enabled in Docker Desktop |
 | Prometheus target DOWN | The API must run with `--host 0.0.0.0` (as `make api` does) on the port in `prometheus.yml` |
