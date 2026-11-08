@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: house-api
-          image: YOUR-DOCKERHUB-NAME/house-api:build-1   # the model version
+          image: muhammadhamzamukhtar/house-api:build-6   # the model version
           ports:
             - containerPort: 8000
           resources:
