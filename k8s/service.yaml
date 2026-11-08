@@ -1,0 +1,12 @@
+# service.yaml - one stable address in front of all house-api pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: house-api
+spec:
+  type: LoadBalancer         # on Docker Desktop this opens http://localhost:8080
+  selector:
+    app: house-api           # send traffic to pods with this label
+  ports:
+    - port: 8080             # the port users call
+      targetPort: 8000       # the port inside the container

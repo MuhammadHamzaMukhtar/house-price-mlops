@@ -1,0 +1,17 @@
+# Re-created by running the scripts, so Git does not need them
+mlruns/
+mlartifacts/
+mlflow.db
+model.pkl
+champion.pkl
+metrics.json
+predictions.csv
+__pycache__/
+.pytest_cache/
+
+# Local Python environment
+.venv/
+
+# macOS
+.DS_Store
+/houses.csv

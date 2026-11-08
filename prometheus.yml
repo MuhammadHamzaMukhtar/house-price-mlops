@@ -1,0 +1,8 @@
+# prometheus.yml - read the API's /metrics every 5 seconds
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: house-api
+    static_configs:
+      - targets: ["host.docker.internal:8000"]   # "my laptop", seen from inside Docker

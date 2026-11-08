@@ -1,0 +1,6 @@
+[core]
+    analytics = false
+    remote = storage
+['remote "storage"']
+    url = s3://hamza-mlops-dvc-2026/dvc
+    region = us-east-1

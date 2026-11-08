@@ -1,0 +1,39 @@
+# deployment.yaml - runs copies (pods) of the house-price API
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: house-api
+spec:
+  replicas: 2                      # how many copies of the API
+  selector:
+    matchLabels:
+      app: house-api
+  template:
+    metadata:
+      labels:
+        app: house-api
+    spec:
+      containers:
+        - name: house-api
+          image: YOUR-DOCKERHUB-NAME/house-api:build-1   # the model version
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:              # what each pod is guaranteed
+              cpu: 100m
+              memory: 256Mi
+            limits:                # the most each pod may use
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:          # "model loaded, send me users"
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:           # "still alive? if not, restart me"
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
